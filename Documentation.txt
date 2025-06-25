@@ -1,0 +1,81 @@
+# Developer Documentation: Node.js Restaurant Food App
+
+## Overview
+
+This is a RESTful API backend built using Node.js and Express.js to manage a restaurant system. It supports operations like authentication, food and category management, restaurant operations, and order handling.
+
+## Environment Setup
+
+* **MongoDB Atlas or Local MongoDB**
+* Node.js v16 or later
+* .env configuration as per README
+
+## Project Structure Explained
+
+* `server.js` — Entry point
+* `config/db.js` — MongoDB connection logic
+* `controllers/` — Handles logic for requests (auth, food, category, etc.)
+* `models/` — Mongoose models for Users, Food, Orders, Restaurants
+* `middlewares/` — Auth and admin role verification
+* `.env` — Secrets and environment variables
+
+## Important Models
+
+* **User**: Handles both admin and regular users
+* **Restaurant**: Basic info about restaurants
+* **Category**: For food categorization
+* **Food**: Each food item belongs to a category and a restaurant
+* **Order**: Tracks user orders
+
+## Auth Middleware
+
+Located in `middlewares/authMiddleware.js`. Verifies JWT and attaches user info to the request.
+
+## API Routes Overview (Assumed Route Prefix: `/api/v1`)
+
+### Auth Routes (`authController.js`)
+
+* `POST /auth/register` – Create user account
+* `POST /auth/login` – Login and get JWT token
+
+### Restaurant Routes (`resturantController.js`)
+
+* `POST /resturant/create` – Add a new restaurant (Admin only)
+* `GET /resturant/get` – Get all restaurants
+
+### Category Routes (`categoryController.js`)
+
+* `POST /category/create` – Add a category (Admin only)
+* `GET /category/get` – Get all categories
+
+### Food Routes (`foodController.js`)
+
+* `POST /food/create` – Add food item
+* `GET /food/get` – Fetch all food items
+* `PUT /food/update/:id` – Update a food item
+* `DELETE /food/delete/:id` – Remove food item
+
+## Running the App
+
+* Run with `npm start` or `node server.js`
+* Default port is `5000`
+
+## Deployment
+
+* Use services like **Render**, **Vercel (for front-end)**, or **Heroku** for backend
+* Add environment variables to deployment dashboard
+
+## Troubleshooting
+
+* **MongoDB not connecting**: Check `MONGO_URI`
+* **JWT errors**: Ensure `JWT_SECRET` is correct in `.env`
+* **CORS issues**: Update CORS settings in Express if frontend is separate
+
+## Notes
+
+* Add `routes/` directory if not already separated
+* Add Swagger for better API documentation in the future
+
+---
+
+For further enhancement, consider adding payment integration, reviews, or search filters.
